@@ -1,5 +1,5 @@
 # HELK4SO
-NOTE: I am currently testing an completing trials in a lab environment but will post the alpha version as soon as those tests ested are completed.  Thank you for your patience.
+NOTE: I am currently testing and completing trials in a lab environment but will post the alpha version as soon as those tests ested are completed.  Thank you for your patience.
 
 This repository is for inregrating HELK capabilities into Security Onion instances.
 
