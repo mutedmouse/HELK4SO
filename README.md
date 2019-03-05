@@ -20,4 +20,4 @@ HUGE thank yous to both Doug Burks and Roberto Rodriguez for their incredible co
 Current TODO:
 - Integrate XENITY config script for rapid implementations
 - Complete integrated testing and deployment in all three security sensor configurations
-- Collocate and deconflict sensor and host interface via automatic BPF filter
+- Collocate and deconflict network sensor interface and host collection interface via automatic BPF filter
