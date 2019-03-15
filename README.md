@@ -1,5 +1,6 @@
 # HELK4SO
-STATUS: Currenlty working with authors and individuals on approvals and licensing for general release.  Thank you for your patience.
+STATUS: Approvals for general release and use have been granted.  We are currently finalizing builds and scripts for distribution 
+and implementation.  Thank you for your patience.
 
 
 This repository is for integrating HELK capabilities into Security Onion instances.
@@ -8,7 +9,7 @@ This will be an evolving extension to both products and as such this not contrib
 
 Please both use at your own risk and enjoy.
 
-APLHA: Should be posted 7 March, 2019
+APLHA: PUSH ASAP
 
 Configs pulled from: https://github.com/Cyb3rWard0g/HELK
  - Modifications will be documented thoroughly in accordance with ensuring coexistence with Security Onion configurations
