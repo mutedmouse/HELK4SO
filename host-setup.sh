@@ -22,7 +22,7 @@ function set_sensor_interface()
         echo -e "\n\nSensor Interface will be $1\nIP: $sensorIP\nSubnet: $sensorSubnet\nGateway: $sensorGW\nDNS1: $sensorDNS"
         read -p "Do you want to continue and write these values? [yn]" yn
         case $yn in
-            [Yy]* ) ifdown $1 && cat /etc/network/interfaces.bak > /etc/network/interfaces 2> /dev/null; echo -e "\nauto $1\niface $1 inet static\n  address $sensorIP\n  gateway $sensorGW\n  netmask $sensorSubnet\n  dns-nameservers $sensorDNS" >> /etc/network/interfaces; ifup $1; break;;
+            [Yy]* ) ifdown $1 && sleep 1 && cat /etc/network/interfaces.bak > /etc/network/interfaces 2> /dev/null; echo -e "\nauto $1\niface $1 inet static\n  address $sensorIP\n  gateway $sensorGW\n  netmask $sensorSubnet\n  dns-nameservers $sensorDNS" >> /etc/network/interfaces && sleep 1 && ifup $1; break;;
             [Nn]* ) set_sensor_interface $1;;
             * ) echo "Please answer y or n.";;
         esac
@@ -41,10 +41,10 @@ function modify_logstash()
         chmod 777 /ioc
 
         #make changes to so-logstash-start
-        sed 's|                        \$LOGSTASH_OPTIONS|                        --volume /ioc:/ioc \\\n                        \$LOGSTASH_OPTIONS|g' /usr/sbin/so-logstash-start
+        sed -i 's|                        \$LOGSTASH_OPTIONS|                        --volume /ioc:/ioc \\\n                        \$LOGSTASH_OPTIONS|g' /usr/sbin/so-logstash-start
 
         #restart logstash and wait for changes
-        restart_logstash()
+        restart_logstash
 
         #install prune plugin from docker command
         echo "Installing prune plugin to logstash docker container"
@@ -60,25 +60,26 @@ function modify_logstash()
         cp -Rf ./logstash/*  /etc/logstash/
 
         #grab master ip address from existing configs
-        masterIP=grep SERVER_HOST /etc/nsm/$(hostname)-$1/http_agent.conf | awk '{print $NF}'
+        masterIP=$(grep SERVER_HOST /etc/nsm/$(hostname)-$1/http_agent.conf | awk '{print $NF}')
 
         #set elastic outputs in config files with masterIP
         sed -i "s/ipaddr/$masterIP/g" /etc/logstash/custom/995*-winevent*
 
         #commit new configs with snapshot and message
-        docker commmit -m "copied configs into place for new mappings" so-logstash securityonionsolutions/so-logstash
+        docker commit -m "copied configs into place for new mappings" so-logstash securityonionsolutions/so-logstash
 
         restart_logstash
 
         #get IP address to receive beats from
-        read -p "Please enter subnet or ip to receive beats from: " beater
-        sudo ufw allow tcp from $beater to any port 5044
+        echo "Running so-allow, please allow beats input [b] for the sensor network or subnet"
+        so-allow
 
+        sensorIP=$(cat /etc/network/interfaces | grep -2a $1 | grep address | awk '{print $NF}')
         read -p "Please enter the username to connect to $masterIP: " masterUser
         echo "Connecting to $masterIP and running so-allow"
-        echo "Please allow $1 to connect to $masterIP over Elastic REST API (9200), use the [e] option."
+        echo "Please allow $sensorIP to connect to $masterIP over Elastic REST API (9200), use the [e] option."
         echo "Enter the password for $masterUser on $masterIP"
-        ssh $masterUser@$masterIP "so-allow"
+        ssh $masterUser@$masterIP "sudo so-allow"
     else
         echo "configs directory not found...exiting"
         exit 1
@@ -89,16 +90,18 @@ function restart_logstash()
 {
     echo "Restarting logstash docker container."
     so-logstash-restart
-    echo "Please wait for script to continue..."
-    while [ -z $(so-logstash-status | grep \[OK\])
+    echo -ne "Please wait for script to continue..."
+    while [ -z "$(so-logstash-status | grep \[OK\])" ]
     do
         if [ ! -z "$(so-logstash-status | grep FAIL)" ]; then
-            echo "Logstash has failed to start, plesae check /var/log/logstash/logstash.log for details and try again"
+            echo "Logstash has failed to start, please check /var/log/logstash/logstash.log for details and try again"
             exit 1
         else
             echo -ne "."
+            sleep 3
         fi
     done
+    echo "."
     echo "Logstash successfully restarted. Now continuing."
 }
 
