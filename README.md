@@ -1,5 +1,7 @@
 # HELK4SO
-STATUS: This is as pre-alpha as it gets. Minimal testing has been done on the config script, more in the next few days along with a configuration guide. 
+STATUS: host-setup.sh script has been tested and is currently stable. Please use with latest security onion iso. Execution should be performed from inside the HELK4SO directory.
+
+Guide will be coming shortly in the WIKI attached to this project with screenshots and instructions for employment.
 
 Please be patient while we complete testing and documentation of the configuration script.
 
