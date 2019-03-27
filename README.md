@@ -1,7 +1,7 @@
 # HELK4SO
-STATUS: Approvals for general release and use have been granted.  We are currently finalizing builds and scripts for distribution 
-and implementation.  Thank you for your patience.
+STATUS: This is as pre-alpha as it gets. Minimal testing has been done on the config script, more in the next few days along with a configuration guide. 
 
+Please be patient while we complete testing and documentation of the configuration script.
 
 This repository is for integrating HELK capabilities into Security Onion instances.
 
@@ -9,7 +9,6 @@ This will be an evolving extension to both products and as such this not contrib
 
 Please both use at your own risk and enjoy.
 
-APLHA: PUSH ASAP
 
 Configs pulled from: https://github.com/Cyb3rWard0g/HELK
  - Modifications will be documented thoroughly in accordance with ensuring coexistence with Security Onion configurations
@@ -20,6 +19,6 @@ Installed on ISO from: https://github.com/Security-Onion-Solutions/security-onio
 HUGE thank yous to both Doug Burks and Roberto Rodriguez for their incredible contributions to the community! Please contact them  for technical support relating to their individual platforms.  I simply mashed the two projects together and provide a method for practical applications.  To all who have been instrumental in this project I cannot express my grattitue enough. 
 
 Current TODO:
-- Integrate XENITY config script for rapid implementations
-- Complete integrated testing and deployment in all three security sensor configurations
+- Complete Guide with Images
+- Automate dashboard and mapping imports on master system
 - Collocate and deconflict network sensor interface and host collection interface via automatic BPF filter
