@@ -1,9 +1,7 @@
 # HELK4SO
 STATUS: host-setup.sh script has been tested and is currently stable. Please use with latest security onion iso. Execution should be performed from inside the HELK4SO directory.
 
-Guide will be coming shortly in the WIKI attached to this project with screenshots and instructions for employment.
-
-Please be patient while we complete testing and documentation of the configuration script.
+Please see Installation Guide at https://github.com/mutedmouse/HELK4SO/wiki/2:-Installation for step-by-step installation details and instructions
 
 This repository is for integrating HELK capabilities into Security Onion instances.
 
