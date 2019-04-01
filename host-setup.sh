@@ -106,6 +106,12 @@ function restart_logstash()
 }
 
 #ip address validation function
+#usage: 
+#    if valid_ip "$ip"; then
+#        echo "Success"
+#    else
+#        echo "Fail"
+#    fi
 #function valid_ip()
 # {
 #    local  ip=$1
@@ -116,8 +122,7 @@ function restart_logstash()
 #        IFS='.'
 #        ip=($ip)
 #        IFS=$OIFS
-#        [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 \
-#            && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
+#        [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
 #        stat=$?
 #    fi
 #    return $stat
