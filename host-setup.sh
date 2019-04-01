@@ -122,7 +122,7 @@ do
         currInterface="$(ls /etc/nsm | grep $(hostname) | awk -F\- '{print $2}' | head -n$interface | tail -n1)"
         echo "[$interface] $currInterface"
     done
-    read -p "Please identify your management interface from the list below:" mgmtNum
+    read -p "Please identify your management interface from the list above:" mgmtNum
     mgmtInterface="$(ls /etc/nsm | grep $(hostname) | awk -F\- '{print $2}' | head -n$mgmtNum | tail -n1)"
     if [ ! -z "$(ls /etc/nsm | grep $(hostname)-$mgmtInterface)" ]; then
         break
@@ -133,12 +133,13 @@ done
 sensorInterface=""
 while true
 do
+    echo -e "\n\n"
     for interface in $(seq 1 1 $(ls /etc/nsm | grep $(hostname) | grep -v $mgmtInterface | awk -F\- '{print $2}' | wc -l))
     do
         currInterface="$(ls /etc/nsm | grep $(hostname) | grep -v $mgmtInterface | awk -F\- '{print $2}' | head -n$interface | tail -n1)"
         echo "[$interface] $currInterface"
     done
-    read -p "Please identify your sensor interface from the list below:" sensorNum
+    read -p "Please identify your sensor interface from the list above:" sensorNum
     sensorInterface="$(ls /etc/nsm | grep $(hostname) | grep -v $mgmtInterface | awk -F\- '{print $2}' | head -n$sensorNum | tail -n1)"
     if [ ! -z "$(ls /etc/nsm | grep $(hostname)-$sensorInterface)" ]; then
         break
