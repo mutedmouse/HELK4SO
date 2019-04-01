@@ -107,7 +107,7 @@ function restart_logstash()
 
 #ip address validation function
 #function valid_ip()
-#{
+# {
 #    local  ip=$1
 #    local  stat=1
 #
@@ -121,7 +121,7 @@ function restart_logstash()
 #        stat=$?
 #    fi
 #    return $stat
-#}
+# }
 
 #verify run as root
 if [ "$(id -u)" != "0" ]; then
