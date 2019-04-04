@@ -80,6 +80,15 @@ function modify_logstash()
         echo "Please allow $sensorIP to connect to $masterIP over Elastic REST API (9200), use the [e] option."
         echo "Enter the password for $masterUser on $masterIP"
         ssh $masterUser@$masterIP "sudo so-allow"
+        
+        echo "Stopping logstash and fixing conf.d direcories"
+        rm -rf /etc/logstash/conf.d/*
+        rm -rf /etc/logstash/conf.d.available/*
+        
+        echo "Restarting elastic stack"
+        so-elastic-restart
+       
+        so-logstash-restart
     else
         echo "configs directory not found...exiting"
         exit 1
