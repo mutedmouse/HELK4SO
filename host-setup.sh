@@ -163,7 +163,7 @@ do
         echo "[$interface] $currInterface"
     done
     read -p "Please identify your sensor interface from the list above:" sensorNum
-    sensorInterface="$(ls /etc/nsm | grep $(hostname) | grep -v $mgmtInterface | awk -F\- '{print $MF}' | head -n$sensorNum | tail -n1)"
+    sensorInterface="$(ls /etc/nsm | grep $(hostname) | grep -v $mgmtInterface | awk -F\- '{print $NF}' | head -n$sensorNum | tail -n1)"
     if [ ! -z "$(ls /etc/nsm | grep $(hostname)-$sensorInterface)" ]; then
         break
     fi
