@@ -63,7 +63,7 @@ function modify_logstash()
         masterIP=$(grep SERVER_HOST /etc/nsm/$(hostname)-$1/http_agent.conf | awk '{print $NF}')
 
         #set elastic outputs in config files with masterIP
-        sed -i "s/ipaddr/$masterIP/g" /etc/logstash/custom/995*-winevent*
+        sed -i "s/ipaddr/$masterIP/g" /etc/logstash/custom/995*
 
         #commit new configs with snapshot and message
         docker commit -m "copied configs into place for new mappings" so-logstash securityonionsolutions/so-logstash
