@@ -87,8 +87,8 @@ function modify_logstash()
         
         echo "Restarting elastic stack"
         so-elastic-restart
-       
-        so-logstash-restart
+
+        restart_logstash
     else
         echo "configs directory not found...exiting"
         exit 1
